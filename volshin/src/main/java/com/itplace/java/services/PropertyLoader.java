@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -38,12 +39,12 @@ public class PropertyLoader {
                 this.properties.getProperty("email", ""),
                 this.properties.getProperty("skype", ""),
                 this.properties.getProperty("avatar", ""),
-                this.properties.getProperty("target", ""),
-                this.properties.getProperty("experience", ""),
-                this.properties.getProperty("education", ""),
-                this.properties.getProperty("additional", ""),
-                this.properties.getProperty("skills", ""),
-                this.properties.getProperty("example", "")
+                Arrays.asList(this.properties.getProperty("target", "").split("\",\"")),
+                Arrays.asList(this.properties.getProperty("experience", "").split("\",\"")),
+                Arrays.asList(this.properties.getProperty("education", "").split("\",\"")),
+                Arrays.asList(this.properties.getProperty("additional", "").split("\",\"")),
+                Arrays.asList(this.properties.getProperty("skills", "").split("\",\"")),
+                Arrays.asList(this.properties.getProperty("example", "").split("\",\""))
         );
     }
 

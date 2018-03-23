@@ -1,5 +1,7 @@
 package com.itplace.java.data;
 
+import java.util.List;
+
 /**
  * Класс - модель с данными из *.properties файла
  */
@@ -10,12 +12,12 @@ public class PropertyData {
     private String email;
     private String skype;
     private String image;
-    private String target;
-    private String experience;
-    private String education;
-    private String additional;
-    private String skills;
-    private String example;
+    private List<String> target;
+    private List<String> experience;
+    private List<String> education;
+    private List<String> additional;
+    private List<String> skills;
+    private List<String> example;
 
     public PropertyData(String fullname,
                         String birthday,
@@ -23,12 +25,12 @@ public class PropertyData {
                         String email,
                         String skype,
                         String image,
-                        String target,
-                        String experience,
-                        String education,
-                        String additional,
-                        String skills,
-                        String example) {
+                        List<String> target,
+                        List<String> experience,
+                        List<String> education,
+                        List<String> additional,
+                        List<String> skills,
+                        List<String> example) {
         this.fullname = fullname;
         this.birthday = birthday;
         this.phonenumber = phonenumber;
@@ -88,42 +90,42 @@ public class PropertyData {
     /**
      * Возвращает текст с жизненными целями
      */
-    public String getTarget() {
+    public List<String> getTarget() {
         return target;
     }
 
     /**
      * Возвращает текст с опытом работы
      */
-    public String getExperience() {
+    public List<String> getExperience() {
         return experience;
     }
 
     /**
      * Возвращает текст с образованием
      */
-    public String getEducation() {
+    public List<String> getEducation() {
         return education;
     }
 
     /**
      * Возвращает текст с дополнительным образованием
      */
-    public String getAdditional() {
+    public List<String> getAdditional() {
         return additional;
     }
 
     /**
      *  Возвращает список умений
      */
-    public String getSkills() {
+    public List<String> getSkills() {
         return skills;
     }
 
     /**
      *  Возвращает пример кода
      */
-    public String getExample() {
+    public List<String> getExample() {
         return example;
     }
 

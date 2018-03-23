@@ -4,6 +4,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.io.OutputStreamWriter;
+import java.util.List;
+
 import com.itplace.java.data.PropertyData;
 import com.itplace.java.services.api.Creator;
 
@@ -18,31 +20,30 @@ public class HtmlCreator implements Creator {
     /**
      * Метод генерации текстового абзаца со списком или без него, на основе данных из .properties файла
      * @param label заголовок абзаца
-     * @param value список строк в абзаце
+     * @param values список строк в абзаце
      * @return строка с текстом абзаца
      */
-    private String getList(String label, String value) {
+    private String formatList(String label, List<String> values) {
         StringBuilder str = new StringBuilder("        <h4><strong>");
         str.append(label);
         str.append("</strong></h4>\n");
-        if (value.isEmpty())
+        if (values.isEmpty())
             return str.toString();
-        String[] values = value.split("\",\"");
-        if (values.length == 1) {
+        if (values.size() == 1) {
             str.append("                <p class=\"text-left\">");
-            str.append(values[0]);
+            str.append(values.get(0));
             str.append("</p>\n");
             return str.toString();
         }
         str.append("<ol>\n");
-        for (int i=0;i<values.length;++i) {
+        for (int i=0;i<values.size();++i) {
             str.append("<li>");
             if (i == 0)
-                str.append(values[i].substring(1));
-            else if (i == values.length - 1)
-                str.append(values[i].substring(0, values[i].length() - 1));
+                str.append(values.get(i).substring(1));
+            else if (i == values.size() - 1)
+                str.append(values.get(i).substring(0, values.get(i).length() - 1));
             else
-                str.append(values[i]);
+                str.append(values.get(i));
             str.append("</li>");
         }
         str.append("</ol>\n");
@@ -89,12 +90,12 @@ public class HtmlCreator implements Creator {
                     + "\" class=\"img-responsive img-thumbnail\" alt=\"\">\n"
                     + "            </div>\n"
                     + "        </div>\n"
-                    + getList("Цель", this.propertyData.getTarget())
-                    + getList("Опыт", this.propertyData.getExperience())
-                    + getList("Образование", this.propertyData.getEducation())
-                    + getList("Доп. образование и курсы", this.propertyData.getAdditional())
-                    + getList("Навыки", this.propertyData.getSkills())
-                    + getList("Пример кода", this.propertyData.getExample())
+                    + formatList("Цель", this.propertyData.getTarget())
+                    + formatList("Опыт", this.propertyData.getExperience())
+                    + formatList("Образование", this.propertyData.getEducation())
+                    + formatList("Доп. образование и курсы", this.propertyData.getAdditional())
+                    + formatList("Навыки", this.propertyData.getSkills())
+                    + formatList("Пример кода", this.propertyData.getExample())
                     + "    </div>\n"
                     + "</body>"
                     + "</html>";
