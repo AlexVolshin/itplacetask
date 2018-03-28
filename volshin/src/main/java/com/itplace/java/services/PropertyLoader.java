@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -31,7 +32,7 @@ public class PropertyLoader {
      * Возвращает загруженный набор данных
      * @return набор данных
      */
-    public PropertyData getData() {
+    public PropertyData getDataFromProperties() {
         return new PropertyData(
                 this.properties.getProperty("FIO", ""),
                 this.properties.getProperty("DOB", ""),
@@ -45,6 +46,30 @@ public class PropertyLoader {
                 Arrays.asList(this.properties.getProperty("additional", "").split("\",\"")),
                 Arrays.asList(this.properties.getProperty("skills", "").split("\",\"")),
                 Arrays.asList(this.properties.getProperty("example", "").split("\",\""))
+        );
+    }
+
+    /**
+     * Возвращает загруженный набор данных
+     * @return набор данных
+     */
+    public PropertyData getDataFromHashMap() {
+        HashMap<String, String> properties = new HashMap<>();
+        for (final String name : this.properties.stringPropertyNames())
+            properties.put(name, this.properties.getProperty(name));
+        return new PropertyData(
+                properties.getOrDefault("FIO", ""),
+                properties.getOrDefault("DOB", ""),
+                properties.getOrDefault("phone", ""),
+                properties.getOrDefault("email", ""),
+                properties.getOrDefault("skype", ""),
+                properties.getOrDefault("avatar", ""),
+                Arrays.asList(properties.getOrDefault("target", "").split("\",\"")),
+                Arrays.asList(properties.getOrDefault("experience", "").split("\",\"")),
+                Arrays.asList(properties.getOrDefault("education", "").split("\",\"")),
+                Arrays.asList(properties.getOrDefault("additional", "").split("\",\"")),
+                Arrays.asList(properties.getOrDefault("skills", "").split("\",\"")),
+                Arrays.asList(properties.getOrDefault("example", "").split("\",\""))
         );
     }
 
