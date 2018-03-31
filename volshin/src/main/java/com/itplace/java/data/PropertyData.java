@@ -1,8 +1,8 @@
 package com.itplace.java.data;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Класс - модель с данными из *.properties файла
@@ -131,7 +131,7 @@ public class PropertyData {
         return example;
     }
 
-    public static PropertyData fromHashMap(HashMap<String, String> propertiesMap) {
+    public static PropertyData fromHashMap(ConcurrentHashMap<String, String> propertiesMap) {
         return new PropertyData(
                 propertiesMap.getOrDefault("FIO", ""),
                 propertiesMap.getOrDefault("DOB", ""),

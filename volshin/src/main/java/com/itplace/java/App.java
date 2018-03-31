@@ -4,13 +4,12 @@ import com.itplace.java.data.PropertyData;
 import com.itplace.java.services.ThreadPropertyLoader;
 import com.itplace.java.services.api.Creator;
 import com.itplace.java.services.HtmlCreator;
-
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class App {
     public static void main(String[] args) {
         try {
-            HashMap<String, String> properties = new HashMap<>();
+            ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
             Thread tr0 = new Thread(new ThreadPropertyLoader(properties, "input0.properties"));
             Thread tr1 = new Thread(new ThreadPropertyLoader(properties, "input1.properties"));
             tr0.start();
