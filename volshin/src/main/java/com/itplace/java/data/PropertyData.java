@@ -1,5 +1,7 @@
 package com.itplace.java.data;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -127,6 +129,23 @@ public class PropertyData {
      */
     public List<String> getExample() {
         return example;
+    }
+
+    public static PropertyData fromHashMap(HashMap<String, String> propertiesMap) {
+        return new PropertyData(
+                propertiesMap.getOrDefault("FIO", ""),
+                propertiesMap.getOrDefault("DOB", ""),
+                propertiesMap.getOrDefault("phone", ""),
+                propertiesMap.getOrDefault("email", ""),
+                propertiesMap.getOrDefault("skype", ""),
+                propertiesMap.getOrDefault("avatar", ""),
+                Arrays.asList(propertiesMap.getOrDefault("target", "").split("\",\"")),
+                Arrays.asList(propertiesMap.getOrDefault("experience", "").split("\",\"")),
+                Arrays.asList(propertiesMap.getOrDefault("education", "").split("\",\"")),
+                Arrays.asList(propertiesMap.getOrDefault("additional", "").split("\",\"")),
+                Arrays.asList(propertiesMap.getOrDefault("skills", "").split("\",\"")),
+                Arrays.asList(propertiesMap.getOrDefault("example", "").split("\",\""))
+        );
     }
 
 }
