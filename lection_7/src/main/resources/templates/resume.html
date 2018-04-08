@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <title>Решение тестового задания Java</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center"><strong>Резюме</strong></h2>
+        <h3 class="text-center"><strong>на должность довакина</strong></h3>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-right"><strong>ФИО:</strong></p>
+                <p class="text-right"><strong>Дата рождения:</strong></p>
+                <p class="text-right"><strong>Телефон:</strong></p>
+                <p class="text-right"><strong>e-mail:</strong></p>
+                <p class="text-right"><strong>Skype:</strong></p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-left" th:text="${fio}" ></p>
+                <p class="text-left" th:text="${dob}" ></p>
+                <p class="text-left" th:text="${phone}" ></p>
+                <p class="text-left" th:text="${email}" ></p>
+                <p class="text-left" th:text="${skype}" ></p>
+            </div>
+            <div class="col-md-4">
+                <img th:src="${avatar}" class="img-responsive img-thumbnail" alt="" />
+            </div>
+        </div>
+        <h4><strong>Цель</strong></h4>
+        <ul th:if="${target != null}">
+            <li th:each="item : ${target}" th:text="${item}"></li>
+        </ul>
+        <h4><strong>Опыт</strong></h4>
+        <ul th:if="${experience != null}">
+            <li th:each="item : ${experience}" th:text="${item}"></li>
+        </ul>
+        <h4><strong>Образование</strong></h4>
+        <ul th:if="${education != null}">
+            <li th:each="item : ${education}" th:text="${item}"></li>
+        </ul>
+        <h4><strong>Доп. образование и курсы</strong></h4>
+        <ul th:if="${additional != null}">
+            <li th:each="item : ${additional}" th:text="${item}"></li>
+        </ul>
+        <h4><strong>Навыки</strong></h4>
+        <ul th:if="${skills != null}">
+            <li th:each="item : ${skills}" th:text="${item}"></li>
+        </ul>
+        <h4><strong>Пример кода</strong></h4>
+        <ul th:if="${example != null}">
+            <li th:each="item : ${example}" th:text="${item}"></li>
+        </ul>
+    </div>
+</body>
+</html>
