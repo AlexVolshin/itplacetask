@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Резюме</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{styles.css}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <section id="app">
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <h3>Список резюме</h3>
+                <table class="striped">
+                    <thead>
+                    <tr>
+                        <th>ФИО:</th>
+                        <th>Цель:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="summary in summaries">
+                        <td>{{ summary.fullname }}</td>
+                        <td>{{ summary.target }}</td>
+                        <td><button class="waves-effect waves-light btn" v-on:click="getSummary(summary.id)">Подробнее</button></td>
+                        <td><button class="waves-effect waves-light btn amber darken-4" v-on:click="editSummary(summary.id)">Редактировать</button></td>
+                        <td><button class="waves-effect waves-light btn red darken-4" v-on:click="removeSummary(summary.id)">Удалить</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div class="divider"></div>
+                <br>
+                <button class="waves-effect waves-light btn blue-grey darken-4" v-on:click="showEditor = true; isEdit = false">Добавить резюме</button>
+                <!-- Окно редактирования и добавления резюме -->
+                <div class="modal-mask" v-if="showEditor">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+                            <form>
+                                <div class="row">
+                                    <input id="input_fio" type="text" data-length="10" v-model="summary.fullname">
+                                    <label for="input_fio">ФИО:</label>
+                                    <input id="input_dob" type="text" data-length="10" v-model="summary.birthday">
+                                    <label for="input_dob">Дата рождения:</label>
+                                    <input id="input_email" type="text" data-length="10" v-model="summary.email">
+                                    <label for="input_email">email:</label>
+                                    <input id="input_skype" type="text" data-length="10" v-model="summary.skype">
+                                    <label for="input_skype">skype:</label>
+                                    <input id="input_phone" type="text" data-length="10" v-model="summary.phone">
+                                    <label for="input_phone">Телефон:</label>
+                                    <input id="input_avatar" type="text" data-length="10" v-model="summary.image">
+                                    <label for="input_avatar">Аватарка:</label>
+                                    <input id="input_target" type="text" data-length="10" v-model="summary.target">
+                                    <label for="input_target">Цели:</label>
+                                    <input id="input_exp" type="text" data-length="10" v-model="summary.experience">
+                                    <label for="input_exp">Опыт:</label>
+                                    <input id="input_education" type="text" data-length="10" v-model="summary.education">
+                                    <label for="input_education">Образование:</label>
+                                    <input id="input_additional" type="text" data-length="10" v-model="summary.additional">
+                                    <label for="input_additional">Дополнительно:</label>
+                                    <input id="input_skills" type="text" data-length="10" v-model="summary.skills">
+                                    <label for="input_skills">Навыки:</label>
+                                    <input id="input_example" type="text" data-length="10" v-model="summary.example">
+                                    <label for="input_example">Примеры:</label>
+                                </div>
+                                <button class="waves-effect waves-light btn" v-on:click="appendSummary" v-if="!isEdit">Добавить</button>
+                                <button class="waves-effect waves-light btn amber darken-4" v-on:click="updateSummary" v-if="isEdit">Применить</button>
+                                <button class="waves-effect waves-light btn red darken-4" v-on:click="showEditor = false">Отмена</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Окно подробной информации -->
+                <div class="modal-mask" v-if="showInfo">
+                    <div class="modal-wrapper">
+                        <div class="modal-container">
+                            <div class="row">
+                                <div class="col s4">
+                                    <p class="right-align"><strong>ФИО:</strong></p>
+                                    <p class="right-align"><strong>Дата рождения:</strong></p>
+                                    <p class="right-align"><strong>Телефон:</strong></p>
+                                    <p class="right-align"><strong>email:</strong></p>
+                                    <p class="right-align"><strong>Skype:</strong></p>
+                                </div>
+                                <div class="col s4">
+                                    <p class="left-align">{{ summary.fullname }}</p>
+                                    <p class="left-align">{{ summary.birthday }}</p>
+                                    <p class="left-align">{{ summary.phone }}</p>
+                                    <p class="left-align">{{ summary.email }}</p>
+                                    <p class="left-align">{{ summary.skype }}</p>
+                                </div>
+                                <div class="col s4">
+                                    <img class="responsive-img" v-bind:src="summary.image" alt="аватар">
+                                </div>
+                                <div class="col s12">
+                                    <h5><strong>Цель</strong></h5>
+                                    <p>{{ summary.target }}</p>
+                                    <h5><strong>Опыт</strong></h5>
+                                    <p>{{ summary.experience }}</p>
+                                    <h5><strong>Образование</strong></h5>
+                                    <p>{{ summary.education }}</p>
+                                    <h5><strong>Доп. образование и курсы</strong></h5>
+                                    <p>{{ summary.additional }}</p>
+                                    <h5><strong>Навыки</strong></h5>
+                                    <p>{{ summary.skills }}</p>
+                                    <h5><strong>Пример кода</strong></h5>
+                                    <p>{{ summary.example }}</p>
+                                    <button class="waves-effect waves-light btn blue-grey darken-4 right-align" v-on:click="closeSummary">Закрыть</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script th:src="@{scripts.js}"></script>
+</body>
+</html>
