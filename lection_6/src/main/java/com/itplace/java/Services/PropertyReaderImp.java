@@ -11,8 +11,8 @@ public class PropertyReaderImp implements PropertyReader {
 
     @Override
     public Properties read(String fileName) {
-        try {
-            Properties properties = new Properties();
+		Properties properties = new Properties();
+        try {    
             properties.load(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(fileName),
                     Charset.forName("UTF-8")));
             return properties;

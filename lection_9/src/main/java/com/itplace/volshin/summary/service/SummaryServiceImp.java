@@ -22,28 +22,27 @@ public class SummaryServiceImp implements SummaryService {
 
     @Override
     public void open(String fileName) {
+		Properties properties = new Properties();
         try {
-            Properties properties = new Properties();
             properties.load(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(fileName),
                     Charset.forName("UTF-8")));
-            Summary summary = new Summary();
-            summary.setFullname(properties.getProperty("FIO", ""));
-            summary.setBirthday(properties.getProperty("DOB", ""));
-            summary.setPhone(properties.getProperty("phone", ""));
-            summary.setEmail(properties.getProperty("email", ""));
-            summary.setSkype(properties.getProperty("skype", ""));
-            summary.setImage(properties.getProperty("avatar", ""));
-            summary.setTarget(properties.getProperty("target", ""));
-            summary.setExperience(properties.getProperty("experience", ""));
-            summary.setEducation(properties.getProperty("education", ""));
-            summary.setAdditional(properties.getProperty("additional", ""));
-            summary.setSkills(properties.getProperty("skills", ""));
-            summary.setExample(properties.getProperty("example", ""));
-            this.summaryRepository.save(summary);
-        } catch (Exception e) {
+		} catch (Exception e) {
             e.printStackTrace();
         }
-
+        Summary summary = new Summary();
+        summary.setFullname(properties.getProperty("FIO", ""));
+        summary.setBirthday(properties.getProperty("DOB", ""));
+        summary.setPhone(properties.getProperty("phone", ""));
+        summary.setEmail(properties.getProperty("email", ""));
+        summary.setSkype(properties.getProperty("skype", ""));
+        summary.setImage(properties.getProperty("avatar", ""));
+        summary.setTarget(properties.getProperty("target", ""));
+        summary.setExperience(properties.getProperty("experience", ""));
+        summary.setEducation(properties.getProperty("education", ""));
+        summary.setAdditional(properties.getProperty("additional", ""));
+        summary.setSkills(properties.getProperty("skills", ""));
+        summary.setExample(properties.getProperty("example", ""));
+        this.summaryRepository.save(summary);
     }
 
 }
